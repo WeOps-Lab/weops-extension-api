@@ -1,0 +1,16 @@
+venv
+env
+.idea
+.vscode
+out
+__pycache__
+sample
+node_modules
+yarn.lock
+dev.db
+scripts/*
+.DS_Store
+*.tar.gz
+*.rpm
+logs/*
+
