@@ -29,4 +29,4 @@ RUN mkdir -p /app/run
 RUN chown -R 1001:1001 /app
 
 USER example
-CMD python /app/main.py
+CMD python3 /app/main.py
