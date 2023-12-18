@@ -22,13 +22,14 @@ def patch_requests():
             "json": kwargs.get("json", ""),
         }
         error = None
+        response = None
         # 发送请求
         try:
             response = old_request(session, method, url, **kwargs)
-
             try:
                 data = response.json()
-            except Exception:
+            except Exception as e:
+                error = e
                 data = response.content.decode("utf8")
             # 记录响应数据
             response_data = {"status_code": response.status_code, "headers": dict(response.headers), "data": data}
@@ -37,10 +38,10 @@ def patch_requests():
                 "exception": repr(e),
                 "traceback": traceback.format_exc(),
             }
-            response = None
             error = e
         logger.info(json.dumps({"request": request_data, "response": response_data}, indent=4))
-        if not response:
+        if response is None:
+            logger.info(f"response is {response}, error is {error}")
             raise error
         return response
 
